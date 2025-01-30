@@ -20,8 +20,8 @@ const Banner = () => {
         <p>There are many variations of passages of  available, but the majority have suffered alteration in some form</p>
       </div>
       <div>
-      <button className="btn btn-outline btn-primary mr-6"></button>
-      <button className="btn btn-outline btn-secondary">Secondary</button>
+      <button className="btn btn-outline btn-primary mr-6">Discover more</button>
+      <button className="btn btn-outline btn-secondary">Latest</button>
       </div>
     </div>
     <div className="absolute left-5 right-5 bottom-0 flex -translate-y-1/2 transform justify-end space-x-2">
