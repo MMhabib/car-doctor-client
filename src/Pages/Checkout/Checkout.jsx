@@ -1,4 +1,7 @@
+import { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import { AuthContext } from "../../provider/Authprovider";
+import Swal from "sweetalert2";
 
 const Checkout = () => {
 
@@ -8,15 +11,44 @@ const handlebooking=event=>{
   const form = event.target;
   const name= form.name.value;
   const date=form.date.value ;
-  const email =form.email.value;
+  const email =user?.email;
 const due=form.due.value;
 
-console.log(name,due,email,date);
-  
+const booking={
+  customer_name:name,
+  email,
+  date,
+  service:title,
+  service_id:_id,
+  price:price,
+  img
+
+}
+  fetch('http://localhost:5000/bookings',{
+    method:'POST',
+    headers:{
+      'content-type':'application/json'
+    },
+    body: JSON.stringify(booking)
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    console.log(data);
+    if(data.insertedId){
+      Swal.fire({
+        title: "Booking Succesful",
+        text: "You have booked a appointment succesfully",
+        icon: "success"
+      });
+      form.reset();
+      
+    }
+  })
 }
 
   const service = useLoaderData();
-  const { title, facility ,price} = service;
+  const { title, img,price,_id} = service;
+  const {user}=useContext(AuthContext)
   return (
     <div>
       <h1 >book now</h1>
@@ -43,7 +75,7 @@ console.log(name,due,email,date);
           <label className="label">
             <span className="label-text">Email</span>
           </label>
-          <input type="email" placeholder="email" name="email" className="input w-full input-bordered" required />
+          <input type="email"  name="email" defaultValue={user?.email} className="input w-full input-bordered" required />
         </div>
         <div className="form-control">
           <label className="label">
