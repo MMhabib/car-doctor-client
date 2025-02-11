@@ -1,7 +1,34 @@
 import { Link } from "react-router-dom";
 import logo from "../../../assets/logo.svg";
+import { useContext } from "react";
+import { AuthContext } from "../../../provider/Authprovider";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
+
+const {user,logOut}=useContext(AuthContext);
+const hanedleSignOut=()=>{
+  logOut()
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You will be logged out",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonText: "Yes, Logged me out!"
+  })
+  .then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Logged Out",
+        text: "You have been Logged out",
+        icon: "success"
+      });
+    }
+  });
+}
+
+
+
   const links = (
     <>
       <Link to={"/"}>
@@ -16,9 +43,13 @@ const Navbar = () => {
       <Link to={"/blog"}>
         <li>Blog</li>
       </Link>
-      <Link to={"/conatct"}>
-        <li>Contact</li>
+      {user?.email? <Link onClick={hanedleSignOut} >
+        <li>Log out</li>
       </Link>
+      :
+      <Link to={"/login"}>
+        <li>Login</li>
+      </Link>}
     </>
   );
 
