@@ -8,7 +8,7 @@ const Navbar = () => {
 
 const {user,logOut}=useContext(AuthContext);
 const hanedleSignOut=()=>{
-  logOut()
+  
   Swal.fire({
     title: "Are you sure?",
     text: "You will be logged out",
@@ -16,13 +16,18 @@ const hanedleSignOut=()=>{
     showCancelButton: true,
     confirmButtonText: "Yes, Logged me out!"
   })
+  
   .then((result) => {
     if (result.isConfirmed) {
+      logOut()
       Swal.fire({
         title: "Logged Out",
         text: "You have been Logged out",
         icon: "success"
-      });
+        
+      })
+      
+      
     }
   });
 }
@@ -43,9 +48,15 @@ const hanedleSignOut=()=>{
       <Link to={"/blog"}>
         <li>Blog</li>
       </Link>
-      {user?.email? <Link onClick={hanedleSignOut} >
+      {user?.email? <>
+        <Link to={"/bookings"}>
+        <li>My Bookings</li>
+      </Link>
+        <Link onClick={hanedleSignOut} >
         <li>Log out</li>
       </Link>
+      
+      </>
       :
       <Link to={"/login"}>
         <li>Login</li>
