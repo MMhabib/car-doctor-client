@@ -1,7 +1,7 @@
 import Swal from "sweetalert2";
 
-const BookingTable = ({ booking ,handlebookingdelte}) => {
-  const { _id, customer_name, email, date, service, service_id, price, img } = booking;
+const BookingTable = ({ booking ,handlebookingdelte,handeleConfirmBooking}) => {
+  const { _id, customer_name, email, date, service, service_id, price, img,status } = booking;
 
  
 
@@ -35,6 +35,11 @@ const BookingTable = ({ booking ,handlebookingdelte}) => {
       <td>{price}</td>
       <th>
         <button className="btn btn-ghost btn-xs">{date}</button>
+      </th>
+      <th>
+        {  status ==='confirm' ? <span className="text-sm font-bold text-blue-700">Confirmed</span> :
+          
+          <button onClick={()=>handeleConfirmBooking(_id)} className="btn btn-ghost ">Confirm</button>}
       </th>
     </tr>
   );
