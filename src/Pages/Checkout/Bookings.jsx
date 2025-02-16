@@ -54,7 +54,29 @@ const handlebookingdelte = (id) => {
     }
   });
 };
+const handeleConfirmBooking=(id)=>{
 
+  fetch(`http://localhost:5000/bookings/${id}`,{
+    method:'PATCH',
+    headers:{
+      'content-type':'application.json'
+    },
+    body:JSON.stringify({status:'confirm'})
+  })
+  .then(res=>res.json())
+  .then(data=>{
+    if(data.modifiedCount > 0   ){
+
+const remaining= bookings.filter(booking=>booking._id !== id)
+const updated= bookings.find(booking=>booking._id === id)
+updated.status='confirm'
+const updatedbookings=[updated,...remaining]
+setBookings(updatedbookings)
+    }
+
+
+  })
+}
 
     return (
         <div className="overflow-x-auto">
@@ -71,11 +93,12 @@ const handlebookingdelte = (id) => {
         <th>Service</th>
         <th>Price</th>
         <th>Date</th>
+        <th>Status</th>
       </tr>
     </thead>
     <tbody>
       {
-        bookings.map(booking=><BookingTable booking={booking} handlebookingdelte={handlebookingdelte}></BookingTable>)
+        bookings.map(booking=><BookingTable booking={booking} key={booking._id} handeleConfirmBooking={handeleConfirmBooking} handlebookingdelte={handlebookingdelte}></BookingTable>)
       }
      
       
