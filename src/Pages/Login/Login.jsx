@@ -13,6 +13,7 @@ const Login = () => {
     signinwithgoogle()
       .then((result) => {
         console.log(result.user);
+        console.log("Location State:", location?.state); // Debugging
         navigate(location?.state ? location.state : "/");
       })
       .catch((error) => {
