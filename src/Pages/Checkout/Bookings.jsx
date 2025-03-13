@@ -54,12 +54,12 @@ const handlebookingdelte = (id) => {
     }
   });
 };
-const handeleConfirmBooking=(id)=>{
+const handeleConfirmBooking=id=>{
 
   fetch(`http://localhost:5000/bookings/${id}`,{
     method:'PATCH',
     headers:{
-      'content-type':'application.json'
+      'content-type':'application/json'
     },
     body:JSON.stringify({status:'confirm'})
   })
