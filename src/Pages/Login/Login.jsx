@@ -14,7 +14,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         console.log("Location State:", location?.state); // Debugging
-        navigate(location?.state ? location.state : "/");
+        navigate(location?.state ? location?.state : "/");
       })
       .catch((error) => {
         console.error(error);
